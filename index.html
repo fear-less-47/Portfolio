@@ -1,0 +1,698 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Muhammad Irfan — Portfolio</title>
+  <meta name="description" content="Portfolio — Documentaries, Videos, Short Reels, Motion Graphics." />
+
+  <style>
+    :root{
+      --bg-black:#020005;
+      --purple:#650ef1;
+      --purple-soft: rgba(101,14,241,.35);
+      --purple-faint: rgba(101,14,241,.12);
+
+      --text:#f2f2f7;
+      --muted:#b6b6d2;
+
+      --line: rgba(255,255,255,.08);
+      --line2: rgba(101,14,241,.25);
+
+      --shadow: 0 18px 55px rgba(0,0,0,.55);
+      --radius: 18px;
+      --max: 1120px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background: var(--bg-black);
+      color: var(--text);
+      line-height:1.55;
+      overflow-x:hidden;
+    }
+    a{color:inherit; text-decoration:none}
+
+    /* Motion background */
+    .motion-bg{
+      position:fixed;
+      inset:0;
+      z-index:-2;
+      background:
+        radial-gradient(900px 600px at 10% 20%, rgba(101,14,241,.38), transparent 62%),
+        radial-gradient(780px 620px at 90% 25%, rgba(101,14,241,.28), transparent 65%),
+        radial-gradient(650px 650px at 55% 85%, rgba(101,14,241,.18), transparent 70%),
+        #020005;
+      animation: floatBG 18s ease-in-out infinite alternate;
+    }
+    @keyframes floatBG{
+      0%{transform: translate3d(0,0,0) scale(1)}
+      100%{transform: translate3d(30px,-40px,0) scale(1.02)}
+    }
+
+    /* Subtle animated grain overlay (premium, not noisy) */
+    .grain{
+      position:fixed;
+      inset:0;
+      z-index:-1;
+      pointer-events:none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+      opacity:.08;
+      mix-blend-mode: overlay;
+      animation: grainMove 6s steps(2) infinite;
+    }
+    @keyframes grainMove{
+      0%{transform:translate(0,0)}
+      100%{transform:translate(-20px, 15px)}
+    }
+
+    .wrap{max-width:var(--max); margin:0 auto; padding:22px 18px 70px}
+
+    /* Topbar */
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(12px);
+      background: rgba(2,0,5,.75);
+      border-bottom:1px solid var(--line);
+    }
+    .topbar-inner{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:14px 18px;
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:800; letter-spacing:.2px;
+    }
+    .dot{
+      width:12px; height:12px; border-radius:999px;
+      background: linear-gradient(135deg, var(--purple), rgba(101,14,241,.55));
+      box-shadow: 0 0 0 6px rgba(101,14,241,.16);
+    }
+    nav{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+    .navlink{
+      padding:9px 12px;
+      border:1px solid transparent;
+      border-radius:999px;
+      color:var(--muted);
+      font-size:14px;
+      transition:.15s ease;
+    }
+    .navlink:hover{
+      color:var(--text);
+      border-color:rgba(101,14,241,.35);
+      background:rgba(101,14,241,.08);
+    }
+
+    /* Cards */
+    .card{
+      background: rgba(255,255,255,.02);
+      border:1px solid var(--line2);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    /* Hero */
+    .hero{
+      padding:32px 0 12px;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:16px;
+      align-items:stretch;
+    }
+    @media (max-width: 900px){
+      .hero{grid-template-columns:1fr}
+    }
+    .hero-main{padding:24px}
+    h1{
+      margin:0 0 10px;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height:1.1;
+      letter-spacing:.2px;
+    }
+    .sub{
+      margin:0 0 16px;
+      color:var(--muted);
+      font-size: 15.5px;
+      max-width: 62ch;
+    }
+    .pillrow{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px}
+    .pill{
+      font-size:13px;
+      color: rgba(242,242,247,.92);
+      border:1px solid rgba(101,14,241,.25);
+      background: rgba(101,14,241,.08);
+      padding:7px 10px;
+      border-radius:999px;
+    }
+    .cta-row{display:flex; gap:10px; flex-wrap:wrap; margin-top:18px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:10px 14px;
+      border-radius: 14px;
+      border:1px solid rgba(101,14,241,.35);
+      background: rgba(101,14,241,.08);
+      transition: .15s ease;
+      font-weight:750;
+      font-size:14px;
+      cursor:pointer;
+    }
+    .btn:hover{transform: translateY(-1px); border-color: rgba(101,14,241,.9)}
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(101,14,241,.95), rgba(101,14,241,.55));
+      border-color: rgba(101,14,241,.9);
+      color:white;
+      box-shadow: 0 18px 55px rgba(101,14,241,.22);
+    }
+    .btn.ghost{
+      background: transparent;
+      border-color: rgba(255,255,255,.12);
+      color: var(--text);
+    }
+    .btn.ghost:hover{border-color: rgba(101,14,241,.6); background: rgba(101,14,241,.06)}
+
+    .hero-side .box{
+      padding:20px;
+      height:100%;
+      display:flex; flex-direction:column; justify-content:space-between;
+      background: linear-gradient(180deg, rgba(101,14,241,.12), rgba(255,255,255,.01));
+    }
+    .tag{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:8px 10px;
+      border:1px solid rgba(101,14,241,.25);
+      border-radius:999px;
+      background: rgba(101,14,241,.07);
+      color: var(--muted);
+      font-size:13px;
+      width: fit-content;
+    }
+    .kpi{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-top:14px;
+    }
+    .kpi .k{
+      padding:12px;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:16px;
+      background: rgba(255,255,255,.02);
+    }
+    .k .num{font-size:20px; font-weight:900}
+    .k .lbl{font-size:12.5px; color:var(--muted); margin-top:2px}
+
+    section{padding:26px 0 0}
+
+    /* Rounded section headings */
+    .section-head{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:14px;
+      margin-bottom:12px;
+    }
+    .section-title{display:inline-block}
+    .section-title h2{
+      margin:0;
+      padding:10px 18px;
+      border-radius:999px;
+      background: linear-gradient(135deg, rgba(101,14,241,.95), rgba(101,14,241,.55));
+      color:white;
+      font-size:18px;
+      font-weight:900;
+      letter-spacing:.25px;
+      box-shadow: 0 12px 34px rgba(101,14,241,.25);
+      border:1px solid rgba(101,14,241,.75);
+    }
+    .section-head p{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+      max-width:70ch;
+    }
+
+    /* Video grid */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:14px;
+    }
+    .video-card{
+      grid-column: span 6;
+      border-radius: var(--radius);
+      border:1px solid rgba(101,14,241,.25);
+      background: rgba(255,255,255,.02);
+      overflow:hidden;
+      transition:.2s ease;
+    }
+    .video-card:hover{
+      transform: translateY(-6px);
+      border-color: rgba(101,14,241,.9);
+      box-shadow: 0 22px 60px rgba(101,14,241,.18);
+    }
+    @media (max-width: 820px){
+      .video-card{grid-column: span 12}
+    }
+    .embed{
+      position:relative;
+      width:100%;
+      padding-top:56.25%;
+      background: rgba(101,14,241,.06);
+      border-bottom:1px solid rgba(255,255,255,.10);
+    }
+    .embed iframe{
+      position:absolute; inset:0;
+      width:100%; height:100%;
+      border:0;
+    }
+    .vc-body{padding:14px 14px 16px}
+    .vc-title{margin:0 0 6px; font-weight:900; color:#fff}
+    .vc-desc{margin:0; color:var(--muted); font-size:14px}
+
+    /* About */
+    .about{
+      padding:18px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+    }
+    @media (max-width: 820px){
+      .about{grid-template-columns:1fr}
+    }
+    .panel{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.02);
+      border-radius: 16px;
+      padding:16px;
+    }
+    .panel h3{margin:0 0 8px; font-size:16px; font-weight:900}
+    .panel p{margin:0; color:var(--muted); font-size:14px}
+
+    /* Contact */
+    .contact{
+      padding:18px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+    }
+    @media (max-width: 900px){
+      .contact{grid-template-columns:1fr}
+    }
+    .form{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.02);
+      border-radius: 16px;
+      padding:16px;
+    }
+    label{display:block; font-size:13px; color:var(--muted); margin:10px 0 6px}
+    input, textarea{
+      width:100%;
+      padding:11px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(101,14,241,.25);
+      background: rgba(2,0,5,.55);
+      color: var(--text);
+      outline: none;
+    }
+    input:focus, textarea:focus{border-color: rgba(101,14,241,.9)}
+    textarea{min-height:120px; resize:vertical}
+    .small{color:var(--muted); font-size:13px; margin:10px 0 0}
+    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
+
+    footer{
+      margin-top:30px;
+      padding-top:20px;
+      border-top:1px solid rgba(255,255,255,.10);
+      color: var(--muted);
+      font-size:13px;
+      display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="motion-bg"></div>
+  <div class="grain"></div>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="dot"></span>
+        <span>Muhammad Irfan</span>
+      </div>
+      <nav>
+        <a class="navlink" href="#about">About</a>
+        <a class="navlink" href="#documentaries">Documentaries</a>
+        <a class="navlink" href="#videos">Videos</a>
+        <a class="navlink" href="#reels">Short Reels</a>
+        <a class="navlink" href="#motion">Motion Graphics</a>
+        <a class="navlink" href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="hero">
+      <div class="card hero-main">
+        <h1>Editor & Storyteller.<br/>Dark visuals. Sharp pacing.</h1>
+        <p class="sub">
+          I edit documentaries, long-form videos, short reels, and motion graphics.
+          My focus is retention: structure, clarity, and visuals that match the script.
+        </p>
+
+        <div class="pillrow">
+          <span class="pill">Documentary Editing</span>
+          <span class="pill">Short-form Reels</span>
+          <span class="pill">Motion Graphics</span>
+          <span class="pill">Sound + Pacing</span>
+        </div>
+
+        <div class="cta-row">
+          <a class="btn primary" href="#documentaries">View Work →</a>
+          <a class="btn ghost" href="#contact">Hire Me</a>
+        </div>
+      </div>
+
+      <div class="card hero-side">
+        <div class="box">
+          <div>
+            <div class="tag">⚡ Fast delivery. Clean results.</div>
+            <div class="kpi">
+              <div class="k">
+                <div class="num">5+ yrs</div>
+                <div class="lbl">Editing experience</div>
+              </div>
+              <div class="k">
+                <div class="num">100+</div>
+                <div class="lbl">Projects shipped</div>
+              </div>
+              <div class="k">
+                <div class="num">4K</div>
+                <div class="lbl">Delivery ready</div>
+              </div>
+              <div class="k">
+                <div class="num">24–72h</div>
+                <div class="lbl">Typical turnaround</div>
+              </div>
+            </div>
+          </div>
+          <div class="small">Replace stats with real numbers. Fake stats make you look weak.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="section-head">
+        <div class="section-title"><h2>About Me</h2></div>
+        <p>Short, direct, and outcome-focused. People hire results, not vibes.</p>
+      </div>
+
+      <div class="card about">
+        <div class="panel">
+          <h3>What I do</h3>
+          <p>
+            I edit high-retention content: documentaries, YouTube videos, reels, and motion graphics.
+            My edits are built around structure, pacing, and clarity — not random effects.
+          </p>
+        </div>
+        <div class="panel">
+          <h3>Tools</h3>
+          <p>
+            Premiere Pro, After Effects, Photoshop, Audition.
+            I build repeatable workflows so output stays consistent at scale.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DOCUMENTARIES -->
+    <section id="documentaries">
+      <div class="section-head">
+        <div class="section-title"><h2>Documentaries</h2></div>
+        <p>Documentaries. Reels. Motion — engineered to impact.</p>
+      </div>
+      <div class="grid">
+        <article class="video-card">
+          <div class="embed">
+            <iframe
+              src="https://drive.google.com/file/d/1SgjfgUL-xEwfx-HMl0uqHfdH1Cv39vMn/preview"
+              title="Drive Video 8"
+              allow="autoplay; fullscreen"
+              allowfullscreen
+              webkitallowfullscreen
+              mozallowfullscreen>
+            </iframe>
+          </div>
+          <div class="vc-body">
+            <h3 class="vc-title">Documentary 1</h3>
+            <p class="vc-desc">Tight structure, strong tension, and visuals synced to meaning.</p>
+          </div>
+        </article>
+
+        <article class="video-card">
+          <div class="embed">
+            <iframe
+              src="https://drive.google.com/file/d/1eqbJpGPELZyv73Z_2xjwx_wkk99WFftt/preview"
+              title="Drive Video 9"
+              allow="autoplay; fullscreen"
+              allowfullscreen
+              webkitallowfullscreen
+              mozallowfullscreen>
+            </iframe>
+          </div>
+          <div class="vc-body">
+            <h3 class="vc-title">Documentary 2</h3>
+            <p class="vc-desc">Clean pacing, deliberate B-roll, and controlled sound design.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- VIDEOS -->
+    <section id="videos">
+      <div class="section-head">
+        <div class="section-title"><h2>Videos</h2></div>
+        <p>From raw footage to unforgettable motion.</p>
+      </div>
+      <div class="grid">
+        <article class="video-card">
+          <div class="embed">
+            <iframe
+              src="https://drive.google.com/file/d/1XxBDpO6-0Bmy5Yd4nreh3HiK5p7wc-nG/preview"
+              title="Drive Video"
+              allow="autoplay; fullscreen"
+              allowfullscreen
+              webkitallowfullscreen
+              mozallowfullscreen>
+            </iframe>
+          </div>
+          <div class="vc-body">
+            <h3 class="vc-title">Video 1</h3>
+            <p class="vc-desc">Strong hook + fast clarity cuts to protect retention.</p>
+          </div>
+        </article>
+
+        <article class="video-card">
+          <div class="embed">
+            <iframe
+              src="https://drive.google.com/file/d/17qLVKpwec-h0_A7yffGMvpiB8nlkB67t/preview"
+              title="Drive Video 2"
+              allow="autoplay; fullscreen"
+              allowfullscreen
+              webkitallowfullscreen
+              mozallowfullscreen>
+            </iframe>
+          </div>
+          <div class="vc-body">
+            <h3 class="vc-title">Video 2</h3>
+            <p class="vc-desc">Clean narrative flow, minimal fluff, crisp audio transitions.</p>
+          </div>
+        </article>
+
+        <!-- Added (generic) -->
+        <article class="video-card">
+          <div class="embed">
+             <iframe
+    src="https://drive.google.com/file/d/1UgKCZWc9PkPZZByLt8h6p8yllTgZKlfp/preview"
+    title="Drive Video 11"
+    allow="autoplay; fullscreen"
+    allowfullscreen
+    webkitallowfullscreen
+    mozallowfullscreen>
+  </iframe>
+          </div>
+          <div class="vc-body">
+            <h3 class="vc-title">Video 3</h3>
+            <p class="vc-desc">Strong hook + fast clarity cuts to protect retention.</p>
+          </div>
+        </article>
+
+        <!-- Added (generic) -->
+        <article class="video-card">
+          <div class="embed">
+            <iframe
+    src="https://drive.google.com/file/d/1B6MYERSWzShIMR-anCcdBGc8Czvg0cJx/preview"
+    title="Drive Video 10"
+    allow="autoplay; fullscreen"
+    allowfullscreen
+    webkitallowfullscreen
+    mozallowfullscreen>
+  </iframe>
+          </div>
+          <div class="vc-body">
+            <h3 class="vc-title">Video 4</h3>
+            <p class="vc-desc">Clean narrative flow, minimal fluff, crisp audio transitions.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SHORT REELS -->
+    <section id="reels">
+      <div class="section-head">
+        <div class="section-title"><h2>Short Reels</h2></div>
+        <p>Short-form edits optimized for punch and clarity.</p>
+      </div>
+      <div class="grid">
+        <article class="video-card">
+          <div class="embed">
+            <iframe
+              src="https://drive.google.com/file/d/1zBPj595dNyWSFPn2Hxpkz6L7liVyjMtg/preview"
+              title="Drive Video 7"
+              allow="autoplay; fullscreen"
+              allowfullscreen
+              webkitallowfullscreen
+              mozallowfullscreen>
+            </iframe>
+          </div>
+          <div class="vc-body">
+            <h3 class="vc-title">Reel 1</h3>
+            <p class="vc-desc">Fast hook, subtitles, tight pacing, clean end beat.</p>
+          </div>
+        </article>
+
+        <article class="video-card">
+          <div class="embed">
+            <iframe
+              src="https://drive.google.com/file/d/1t0Z7dNubPrXzt-F1fynYECvAIhxJhtvI/preview"
+              title="Drive Video 6"
+              allow="autoplay; fullscreen"
+              allowfullscreen
+              webkitallowfullscreen
+              mozallowfullscreen>
+            </iframe>
+          </div>
+          <div class="vc-body">
+            <h3 class="vc-title">Reel 2</h3>
+            <p class="vc-desc">Punchy cuts + motion accents with consistent timing.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- MOTION GRAPHICS -->
+    <section id="motion">
+      <div class="section-head">
+        <div class="section-title"><h2>Motion Graphics</h2></div>
+        <p>Kinetic typography, explainers, UI animations.</p>
+      </div>
+      <div class="grid">
+        <article class="video-card">
+          <div class="embed">
+            <iframe
+              src="https://drive.google.com/file/d/1X2-e0f5egsKhxzMaVBrvai5m1QZvxdKq/preview"
+              title="Drive Video 3"
+              allow="autoplay; fullscreen"
+              allowfullscreen
+              webkitallowfullscreen
+              mozallowfullscreen>
+            </iframe>
+          </div>
+          <div class="vc-body">
+            <h3 class="vc-title">Motion Piece 1</h3>
+            <p class="vc-desc">Kinetic typography built for clarity — not noise.</p>
+          </div>
+        </article>
+
+        <article class="video-card">
+          <div class="embed">
+            <iframe
+              src="https://drive.google.com/file/d/1cE2-fgXxF31qd6Ho_ZkjfwyC4v2mfEGx/preview"
+              title="Drive Video 5"
+              allow="autoplay; fullscreen"
+              allowfullscreen
+              webkitallowfullscreen
+              mozallowfullscreen>
+            </iframe>
+          </div>
+          <div class="vc-body">
+            <h3 class="vc-title">Motion Piece 2</h3>
+            <p class="vc-desc">Clean infographic motion with controlled timing.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="section-head">
+
+      <div class="card contact">
+        <div class="form">
+          <h3 style="margin:0 0 8px; font-weight:900;">Send a message</h3>
+          <form id="contactForm">
+            <label for="name">Name</label>
+            <input id="name" name="name" placeholder="Your name" required />
+
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="you@email.com" required />
+
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="What do you need edited? Timeline? Budget?" required></textarea>
+
+            <div class="cta-row" style="margin-top:12px">
+              <button class="btn primary" type="submit">Send</button>
+              <a class="btn ghost" href="mailto:fear47less@gmail.com">Email me</a>
+            </div>
+
+            <p id="formStatus" class="small"></p>
+          </form>
+        </div>
+
+        <div class="form">
+
+          <div class="tag" style="margin-bottom:10px">📧 <span class="mono">fear47less@gmail.com</span></div>
+
+          <a class="tag" style="margin-bottom:10px" href="https://wa.me/923225037589" target="_blank" rel="noopener">
+            💬 <span class="mono">WhatsApp</span>
+          </a>
+
+          <a class="tag" style="margin-bottom:10px" href="https://www.instagram.com/m_irfan.4?igsh=ZDhrbW84NzdlZjUw" target="_blank" rel="noopener">
+            📷 <span class="mono">instagram</span>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div>© <span id="year"></span> Muhammad Irfan. All rights reserved.</div>
+      <div>Black + purple. Clean motion. No gimmicks.</div>
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    document.getElementById("contactForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const status = document.getElementById("formStatus");
+      status.textContent = "Demo form: connect to Formspree/Netlify or your own backend to send messages.";
+    });
+  </script>
+</body>
+</html>
